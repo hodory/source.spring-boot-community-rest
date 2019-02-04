@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3305/spring_boot
+    username: spring_boot
+    password: khzero@test
+    driver-class-name: com.mysql.jdbc.Driver
+  data:
+    rest:
+      base-path: /api # API의 모든 요청 기본 경로
+      default-page-size: 10 # 디폴트 페이지 크기
+      max-page-size: 10 # 최대 페이지 수
+server:
+  port: 8081
