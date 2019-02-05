@@ -11,6 +11,9 @@ import org.springframework.hateoas.Resources;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 @RepositoryRestController
 public class BoardRestController {
     private BoardRepository boardRepository;
@@ -19,12 +22,15 @@ public class BoardRestController {
         this.boardRepository = boardRepository;
     }
 
-//    @GetMapping("/boards")
-//    public @ResponseBody
-//    Resources<Board> simpleBoard(@PageableDefault Pageable pageable) {
-//        Page<Board> boardList = boardRepository.findAll(pageable);
-//
-//        PagedResources.PageMetadata = new PagedResources.PageMetadata(pageable.getPageSize(), boardList.getNumber(), boardList.getTotalElements());
-//    }
+    @GetMapping("/boards")
+    public @ResponseBody Resources<Board> simpleBoard(@PageableDefault Pageable pageable) {
+        Page<Board> boardList = boardRepository.findAll(pageable);
+
+        PagedResources.PageMetadata pageMetadata = new PagedResources.PageMetadata(pageable.getPageSize(), boardList.getNumber(), boardList.getTotalElements());
+        PagedResources<Board> resources = new PagedResources<>(boardList.getContent(), pageMetadata);
+        resources.add(linkTo(methodOn(BoardRestController.class).simpleBoard(pageable)).withSelfRel());
+
+        return resources;
+    }
 
 }
