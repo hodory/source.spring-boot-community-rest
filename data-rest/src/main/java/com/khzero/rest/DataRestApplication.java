@@ -1,5 +1,6 @@
 package com.khzero.rest;
 
+import com.khzero.rest.event.BoardEventHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -58,5 +59,10 @@ public class DataRestApplication {
 
             return new InMemoryUserDetailsManager(userDetailsList);
         }
+    }
+
+    @Bean
+    BoardEventHandler boardEventHandler() {
+        return new BoardEventHandler();
     }
 }
