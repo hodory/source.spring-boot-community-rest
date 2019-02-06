@@ -1,5 +1,6 @@
 package com.khzero.rest.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.khzero.rest.domain.enums.SocialType;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class User implements Serializable {
     private String name;
 
     @Column
+    @JsonIgnore
     private String password;
 
     @Column
